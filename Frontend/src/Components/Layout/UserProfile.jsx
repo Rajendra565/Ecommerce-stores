@@ -2,14 +2,14 @@ import React from "react";
 import Header from "../Common/Header";
 import Footer from "../Common/Footer";
 
-function Kids() {
+function UserProfile() {
   return (
     <div>
       {/* Header content Start */}
       <Header />
       {/* Header section end */}
       {/* Main content Start*/}
-      <h1>Kids</h1>
+      <h1>User details</h1>
       {/* Main content End*/}
       {/* Footer content Start */}
       <Footer />
@@ -18,4 +18,4 @@ function Kids() {
   );
 }
 
-export default Kids;
+export default UserProfile;

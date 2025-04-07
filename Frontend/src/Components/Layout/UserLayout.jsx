@@ -1,18 +1,20 @@
-import React from 'react'
-import Header from '../Common/Header'
+import React from "react";
+import Header from "../Common/Header";
+import Footer from "../Common/Footer";
 
 function UserLayout() {
   return (
     <>
-    {/* Header */}
-    <Header/>
-    {/* Sidebar */}
+      {/* Header */}
+      <Header />
+      {/* Sidebar */}
+      <h1>Home page</h1>
 
-    {/* Main content */}
-    {/* Footer */}
-      
+      {/* Main content */}
+      {/* Footer */}
+      <Footer />
     </>
-  )
+  );
 }
 
-export default UserLayout
+export default UserLayout;
