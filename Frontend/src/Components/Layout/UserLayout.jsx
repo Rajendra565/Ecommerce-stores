@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "../Common/Header";
 import Footer from "../Common/Footer";
+import Hero from "../../Pages/Hero";
 
 function UserLayout() {
   return (
@@ -8,7 +9,7 @@ function UserLayout() {
       {/* Header */}
       <Header />
       {/* Sidebar */}
-      <h1>Home page</h1>
+      <Hero />
 
       {/* Main content */}
       {/* Footer */}

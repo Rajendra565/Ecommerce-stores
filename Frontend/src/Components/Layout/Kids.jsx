@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "../Common/Header";
 import Footer from "../Common/Footer";
+// import MainPage from "../../Pages/MainPage";
 
 function Kids() {
   return (
@@ -9,7 +10,7 @@ function Kids() {
       <Header />
       {/* Header section end */}
       {/* Main content Start*/}
-      <h1>Kids</h1>
+      {/* <MainPage></MainPage> */}
       {/* Main content End*/}
       {/* Footer content Start */}
       <Footer />
