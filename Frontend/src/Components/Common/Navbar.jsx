@@ -1,180 +1,147 @@
 import { Link, NavLink } from "react-router-dom";
-import React, { useState } from "react";
-import Logo from "../../assets/logo.png";
-import "../../Style/Navbar.css";
-
+import React, { useState, useEffect } from "react";
+// import Logo from "../../assets/logo.png";
+import Logo from "../../assets/Kalki-Fashion-Logo.png";
+// import "../../Style/Navbar.css";
 import PersonIcon from "@mui/icons-material/Person";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
 import DeleteIcon from "@mui/icons-material/Delete";
-import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
+import SearchBar from "./SearchBar";
 
 function Navbar() {
   const [visible, setVisible] = useState(false);
-  // const color = "#f1843c";
+  const [showUserMenu, setShowUserMenu] = useState(false);
+
+  // Prevent background scroll when mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = visible ? "hidden" : "auto";
+  }, [visible]);
+
   return (
-    <div>
-      <nav className=" flex items-center justify-between py-4 px-10 bg-[#e4e4e4d6] w-screen">
-        {/* Logo center */}
+    <div className="relative">
+      {/* BACKDROP for sidebar */}
+      {visible && (
+        <div
+          className="fixed top-0 left-0 w-full h-full bg-black opacity-30 z-40"
+          onClick={() => setVisible(false)}
+        />
+      )}
+
+      <nav className="flex items-center justify-between py-4 px-6 bg-[#FFFFFF] w-full shadow-sm shadow-black">
+        {/* Logo */}
         <div className="logo">
-          <Link to="/" className=" cursor-pointer">
-            <img src={Logo} alt="image" className=" w-12 cursor-pointer" />
+          <Link to="/" className="cursor-pointer">
+            <img src={Logo} alt="logo" className=" w-24 " />
           </Link>
         </div>
-        {/* links left */}
-        <div className="flex xl:block  md:block @sm:hidden @lg:hidden @md:hidden lg-hidden sm:hidden gap-3 items-center">
-          <div className="center-links flex gap-3 text-center capitalize">
+
+        {/* Center links (visible only on xl and up) */}
+        <div className="hidden xl:flex gap-3 items-center capitalize">
+          {["man", "woman", "kids", "luxe"].map((item) => (
             <NavLink
-              className=" hover:bg-[#f1843c] hover:text-[#fff]"
+              key={item}
+              to={`/${item}`}
+              className=" hover:text-[#fff] hover:bg-[#000]"
               style={({ isActive }) => ({
-                backgroundColor: isActive ? "#f1843c" : "",
+                backgroundColor: isActive ? "#000" : "",
                 borderRadius: "10px",
                 padding: "10px 20px",
-                color: isActive ? "#fff" : "#000",
+                color: isActive ? "#fff" : "",
               })}
-              to="/man"
             >
-              man
+              {item}
             </NavLink>
-            <NavLink
-              className=" hover:bg-[#f1843c] hover:text-[#fff]"
-              style={({ isActive }) => ({
-                backgroundColor: isActive ? "#f1843c" : "",
-                borderRadius: "10px",
-                padding: "10px 20px",
-                color: isActive ? "#fff" : "#000",
-              })}
-              to="/woman"
-            >
-              Woman
-            </NavLink>
-            <NavLink
-              className=" hover:bg-[#f1843c] hover:text-[#fff]"
-              style={({ isActive }) => ({
-                backgroundColor: isActive ? "#f1843c" : "",
-                borderRadius: "10px",
-                padding: "10px 20px",
-                color: isActive ? "#fff" : "#000",
-              })}
-              to="/kids"
-            >
-              Kids
-            </NavLink>
-            <NavLink
-              className=" hover:bg-[#f1843c] hover:text-[#fff]"
-              style={({ isActive }) => ({
-                backgroundColor: isActive ? "#f1843c" : "",
-                borderRadius: "10px",
-                padding: "10px 20px",
-                color: isActive ? "#fff" : "#000",
-              })}
-              to="/luxe"
-            >
-              Luxe
-            </NavLink>
-          </div>
+          ))}
         </div>
 
-        {/*right side  */}
-        <div className="right-side flex gap-3 items-center mr-5">
-          <div className="search">
-            <SearchIcon className=" cursor-pointer" />
-          </div>
+        {/* Right-side icons */}
+        <div className="flex gap-3 items-center">
+          <SearchBar />
+
+          {/* User icon */}
           <div className="userIon relative">
-            <PersonIcon className=" cursor-pointer text-7xl" />
+            <PersonIcon
+              className="cursor-pointer text-7xl"
+              onClick={() => setShowUserMenu(!showUserMenu)}
+            />
 
-            <div className="user-detils absolute top-4 right-0 w-40 z-50 bg-white shadow-lg rounded-lg p-4 mt-2 gap-3 ">
-              <b className="text-lg font-semibold">My Account</b>
-              <Link to="/profile">
-                <p className="text-sm  hover:bg-[#414141] hover:scale-105 hover:text-[#fff] cursor-pointer rounded-lg p-2">
-                  Profile
+            {showUserMenu && (
+              <div className="user-detils absolute top-4 right-0 w-40 z-50 bg-white shadow-lg rounded-lg p-4 mt-2 gap-3">
+                <b className="text-lg font-semibold">My Account</b>
+                <Link to="/profile">
+                  <p className="text-sm hover:bg-[#414141] hover:scale-105 hover:text-[#fff] cursor-pointer rounded-lg p-2">
+                    Profile
+                  </p>
+                </Link>
+                <Link to="/orderdetails">
+                  <p className="text-sm hover:bg-[#414141] hover:scale-105 hover:text-[#fff] cursor-pointer rounded-lg p-2">
+                    Orders
+                  </p>
+                </Link>
+                <p className="text-sm hover:bg-[#414141] hover:scale-105 hover:text-[#fff] cursor-pointer rounded-lg p-2">
+                  Settings
                 </p>
-              </Link>
-              <Link to="/orderdetails">
-                <p className="text-sm  hover:bg-[#414141] hover:scale-105 hover:text-[#fff] cursor-pointer rounded-lg p-2">
-                  Orders
+                <p className="text-sm hover:bg-[#414141] hover:scale-105 hover:text-[#fff] cursor-pointer rounded-lg p-2">
+                  Logout
                 </p>
-              </Link>
-              <p className="text-sm  hover:bg-[#414141] hover:scale-105 hover:text-[#fff] cursor-pointer rounded-lg p-2">
-                Settings
-              </p>
-
-              <p className="text-sm  hover:bg-[#414141] hover:scale-105 hover:text-[#fff] cursor-pointer rounded-lg p-2">
-                Logout
-              </p>
-            </div>
+              </div>
+            )}
           </div>
-          <Link to={"/addtocart"}>
-            <div className="addtoCart relative">
-              <ShoppingCartIcon className=" cursor-pointer text-7xl" />
-              <span className=" absolute bottom-2 left-1 text-[#fff] bg-[#b90909] p-2 pl-3 rounded-full text-sm font-semibold scale-50">
-                10
-              </span>
-            </div>
+
+          {/* Cart */}
+          <Link to="/addtocart" className="relative">
+            <ShoppingCartIcon className="cursor-pointer text-4xl sm:text-5xl" />
+            <span className="absolute bottom-1 left-4 text-white scale-75 bg-red-700 p-1 rounded-full text-xs font-semibold">
+              10
+            </span>
           </Link>
-          <div className="wishlist relative">
-            <Link to={"/wishlist"}>
-              <FavoriteIcon className="cursor-pointer" />
-              <span className=" absolute bottom-2 left-1 text-[#fff] bg-[#b90909] p-2 pl-3 rounded-full text-sm font-semibold scale-50">
-                10
-              </span>
-            </Link>
-          </div>
-          <div
-            className="menuIon cursor-pointer pl-12 xl:hidden lg:hidden md:hidden  sm:block "
-            onClick={() => setVisible(true)}
-          >
-            <IconButton
-              aria-label=""
-              sx={{ bgcolor: "#000", color: "#fff", ":hover": "#000" }}
-            >
+
+          {/* Wishlist */}
+          <Link to="/wishlist" className="relative">
+            <FavoriteIcon className="cursor-pointer text-3xl" />
+            <span className="absolute bottom-1 left-3 text-white scale-75 bg-red-700 p-1 rounded-full text-xs font-semibold">
+              10
+            </span>
+          </Link>
+
+          {/* Hamburger menu (visible only on small screens) */}
+          <div className="block xl:hidden" onClick={() => setVisible(true)}>
+            <IconButton sx={{ bgcolor: "#000", color: "#fff" }}>
               <MenuIcon />
             </IconButton>
           </div>
         </div>
       </nav>
+
+      {/* Slide-out mobile menu */}
       <div
-        className={`absolute top-8 right-0 bottom-0 overflow-hidden bg-[#ffffff] transition-all shadow-2xl duration-700 ease-in z-50 w-72  ${
-          visible ? " h-11/12 " : " h-0"
-        } `}
+        className={`fixed top-0 right-0 h-full bg-white z-50 w-72 shadow-2xl transition-all duration-500 ease-in-out ${
+          visible ? "translate-x-0" : "translate-x-full"
+        }`}
       >
-        <div className=" relative w-full h-full flex justify-center items-center">
-          <div
-            className="backbutton cursor-pointer absolute top-0 right-0"
-            onClick={() => setVisible(false)}
-          >
-            <IconButton aria-label="delete">
+        <div className="flex flex-col h-full">
+          {/* Close button */}
+          <div className="flex justify-end p-4">
+            <IconButton onClick={() => setVisible(false)}>
               <DeleteIcon />
             </IconButton>
           </div>
-          <div className=" w-full h-full flex flex-col p-10">
-            <NavLink
-              className="py-2 pl-6 w-full align-middle hover:text-[#414141]"
-              to="/man"
-            >
-              Man
-            </NavLink>
-            <NavLink
-              className="py-2 pl-6 w-full align-middle hover:text-[#414141]"
-              to="/woman"
-            >
-              Woman
-            </NavLink>
-            <NavLink
-              className="py-2 pl-6 w-full align-middle hover:text-[#414141]"
-              to="/kids"
-            >
-              Kids
-            </NavLink>
-            <NavLink
-              className="py-2 pl-6 w-full align-middle hover:text-[#414141]"
-              to="/luxe"
-            >
-              Luxe
-            </NavLink>
+
+          {/* Mobile nav links */}
+          <div className="flex flex-col px-6 gap-4 text-lg capitalize">
+            {["man", "woman", "kids", "luxe"].map((item) => (
+              <NavLink
+                key={item}
+                to={`/${item}`}
+                className="hover:text-[#0a0a0a] text[#fff]"
+                onClick={() => setVisible(false)}
+              >
+                {item}
+              </NavLink>
+            ))}
           </div>
         </div>
       </div>

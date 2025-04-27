@@ -9,7 +9,9 @@ function UserProfile() {
       <Header />
       {/* Header section end */}
       {/* Main content Start*/}
-      <h1>User details</h1>
+      <main>
+        <h1>Porfile</h1>
+      </main>
       {/* Main content End*/}
       {/* Footer content Start */}
       <Footer />
